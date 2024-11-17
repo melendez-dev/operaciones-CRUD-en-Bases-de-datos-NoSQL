@@ -1,0 +1,78 @@
+// Colección: equipos
+{
+  _id: ObjectId,
+  nombre: String,
+  ciudad: String,
+  entrenador_id: ObjectId,
+  jugadores: [ObjectId]
+}
+
+// Colección: jugadores
+{
+  _id: ObjectId,
+  nombre: String,
+  apellido: String,
+  fecha_nacimiento: Date,
+  posicion: String,
+  numero_camiseta: Number,
+  equipo_id: ObjectId
+}
+
+// Colección: entrenadores
+{
+  _id: ObjectId,
+  nombre: String,
+  apellido: String,
+  experiencia: Number // años de experiencia
+}
+
+// Colección: arbitros
+{
+  _id: ObjectId,
+  nombre: String,
+  apellido: String,
+  experiencia: Number, // años de experiencia
+  partidos_arbitrados: [ObjectId]
+}
+
+// Colección: partidos
+{
+  _id: ObjectId,
+  fecha: Date,
+  equipo_local: {
+    id: ObjectId,
+    puntos: Number
+  },
+  equipo_visitante: {
+    id: ObjectId,
+    puntos: Number
+  },
+  arbitros: [ObjectId],
+  estado: String, // "programado", "en curso", "finalizado"
+  cuartos: [
+    {
+      numero: Number,
+      puntos_local: Number,
+      puntos_visitante: Number
+    }
+  ],
+  tiempos_extra: [
+    {
+      numero: Number,
+      puntos_local: Number,
+      puntos_visitante: Number
+    }
+  ]
+}
+
+// Colección: estadisticas
+{
+  _id: ObjectId,
+  jugador_id: ObjectId,
+  partido_id: ObjectId,
+  puntos: Number,
+  rebotes: Number,
+  asistencias: Number,
+  robos: Number,
+  bloqueos: Number
+}
