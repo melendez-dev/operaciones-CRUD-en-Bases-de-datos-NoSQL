@@ -4,7 +4,8 @@
 En este repositorio se puede encontrar dos archivos:
 
 requerimientos.db -> El cual contiene los requerimientos del torneo
-modelo-db.mongodb: 
+
+modelo-db.mongodb -> 
     El cual contiene el modelo de la base de datos
     en mongoDB el cual esta acorde con los requerimientos
 
