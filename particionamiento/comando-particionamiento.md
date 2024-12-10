@@ -53,3 +53,48 @@ start mongo.exe --shardsvr --port 29117 --dbpath "c:\shard_data\shard3\data2" --
 
 start mongo.exe --shardsvr --port 29217 --dbpath "c:\shard_data\shard3\data3" --repSet shard3_repset
 ```
+
+```
+mongo.exe hostname:26017
+
+MongoDB Enterprise > rs.initiate(
+    {
+        _id: "shard1_repset",
+        members: [
+            _id: 0, host: "hostname:26017",
+            _id: 1, host: "hostname:26117",
+            _id: 2, host: "hostname:26217"
+        ]
+    }
+)
+```
+
+```
+mongo.exe hostname:28017
+
+MongoDB Enterprise > rs.initiate(
+    {
+        _id: "shard2_repset",
+        members: [
+            _id: 0, host: "hostname:28017",
+            _id: 1, host: "hostname:28117",
+            _id: 2, host: "hostname:28217"
+        ]
+    }
+)
+```
+
+```
+mongo.exe hostname:29017
+
+MongoDB Enterprise > rs.initiate(
+    {
+        _id: "shard3_repset",
+        members: [
+            _id: 0, host: "hostname:29017",
+            _id: 1, host: "hostname:29117",
+            _id: 2, host: "hostname:29217"
+        ]
+    }
+)
+```
