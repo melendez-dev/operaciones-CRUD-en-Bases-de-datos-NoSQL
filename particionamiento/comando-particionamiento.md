@@ -98,3 +98,49 @@ MongoDB Enterprise > rs.initiate(
     }
 )
 ```
+
+```
+md c:\shard_data\config_server1\data1
+md c:\shard_data\config_server1\data2
+md c:\shard_data\config_server1\data3
+```
+
+```
+mongo.exe --configsvr --port 47017 --dbpath "c:\shard_data\config_server1\data1" --repSet configserver1_repset
+
+mongo.exe --configsvr --port 47117 --dbpath "c:\shard_data\config_server1\data2" --repSet configserver1_repset
+
+mongo.exe --configsvr --port 47217 --dbpath "c:\shard_data\config_server1\data3" --repSet configserver1_repset
+```
+
+```
+mongo.exe hostname:47017
+
+MongoDB  Enterprise > rs.initiate(
+    {
+        _id: "configserver1_repset",
+        configsvr: true,
+        members: [
+            {_id: 0, host: "hostname:47017"},
+            {_id: 1, host: "hostname:47117"},
+            {_id: 2, host: "hostname:47217"}
+        ]
+    }
+)
+```
+
+```
+start mongos.exe --configdb configserver1_repset\hostname:47017,hostname:47117,hostname:47217 --port 1000
+```
+
+```
+mongo.exe localhost:1000
+
+sh.addShard("shard1_repset\localhost:26017,localhost:26117,localhost:26217")
+sh.addShard("shard2_repset\localhost:28017,localhost:28117,localhost:28217")
+sh.addShard("shard3_repset\localhost:29017,localhost:29117,localhost:29217")
+```
+
+```
+mongos > sh.status()
+```
