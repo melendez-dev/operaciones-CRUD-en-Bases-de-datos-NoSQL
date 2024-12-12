@@ -144,3 +144,28 @@ sh.addShard("shard3_repset\localhost:29017,localhost:29117,localhost:29217")
 ```
 mongos > sh.status()
 ```
+
+```
+sh.enableSharding("demos")
+
+sh.shardCollection("demos.equipos", {"_id": "46454ab1-5a7e-43d3-947b-59c3b38648f2"})
+```
+
+```js
+for (let i = 0; i < 100; i++) {
+    const equipo = {
+        _id: Random.UUID(),
+        nombre: Random.name(),
+        ciudad: ["Bogota", "Medellin", "Barranquilla", "Cartagena", "Santa Marta"][Math.random(0, 4)],
+        entrenador_id: db.entrenador.find({"id_": i}),
+        jugadores: Array.from({length: 5}).fill(Random.UUID())
+    }
+    db.equipos.insert.(equipo)
+}
+```
+
+```
+sh.status()
+
+db.equipos.count()
+```
